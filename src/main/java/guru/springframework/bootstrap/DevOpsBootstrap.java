@@ -6,6 +6,7 @@ import guru.springframework.domain.ProductCategory;
 import guru.springframework.repositories.AuthorRepository;
 import guru.springframework.repositories.ProductCategoryRepository;
 import guru.springframework.repositories.ProductRepository;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -40,6 +41,9 @@ public class DevOpsBootstrap implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
+        if(IteratorUtils.toList(authorRepository.findAll().iterator()).size() == 0) {
+
         Author jt = new Author();
         jt.setFirstName("John");
         jt.setLastName("Thompson");
@@ -179,4 +183,5 @@ public class DevOpsBootstrap implements ApplicationListener<ContextRefreshedEven
 
         springCoreDevOps = productRepository.save(springCoreDevOps);
     }
+}
 }
